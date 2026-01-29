@@ -292,6 +292,26 @@
         .artist-card.selected { border-color: var(--accent-white); }
         .artist-card.selected .name { background: var(--accent-white); color: black; }
 
+        .no-preference-card {
+            grid-column: span 2;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .no-preference-card.selected {
+            background: var(--accent-white);
+            color: black;
+            border-color: var(--accent-white);
+        }
+
         /* PIERCING PRESETS */
         .piercing-grid {
             display: grid;
@@ -607,9 +627,9 @@
 
             if (filtered.length > 1) {
                 const noPref = document.createElement('div');
-                noPref.className = 'artist-card';
+                noPref.className = 'no-preference-card';
                 noPref.onclick = () => selectArtist('Senza preferenza', noPref);
-                noPref.innerHTML = `<div style="height:160px; display:flex; align-items:center; justify-content:center; background:#222">Nessuna</div><div class="name">Nessuna</div>`;
+                noPref.innerText = 'Nessuna Preferenza';
                 list.appendChild(noPref);
             } else if (filtered.length === 1) {
                 data.artist = filtered[0].name;
@@ -620,7 +640,7 @@
 
         function selectArtist(name, el) {
             data.artist = name;
-            document.querySelectorAll('.artist-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.artist-card, .no-preference-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             setTimeout(() => { step = 6; updateUI(); }, 250);
         }
