@@ -9,7 +9,7 @@
     <style>
         :root {
             --bg-black: #000000;
-            --card-bg: rgba(17, 17, 17, 0.85);
+            --card-bg: rgba(17, 17, 17, 0.9);
             --border-gray: #333333;
             --accent-white: #ffffff;
             --text-main: #ffffff;
@@ -46,15 +46,15 @@
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.9) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
             z-index: -4;
         }
 
         /* PROGRESS BAR */
         .progress-bar-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 3px;
-            background: #111;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: rgba(255,255,255,0.1);
             z-index: 100;
         }
 
@@ -62,13 +62,14 @@
             height: 100%;
             width: 0%;
             background: var(--accent-white);
+            box-shadow: 0 0 10px var(--accent-white);
             transition: width 0.5s ease;
         }
 
         /* SLIDER */
         .main-slider {
             display: flex;
-            width: 1200%; 
+            width: 900%; /* Ridotto a 9 step max */
             height: 100%;
             transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
@@ -76,7 +77,7 @@
         section {
             width: 100vw;
             height: 100vh;
-            padding: 20px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -90,20 +91,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transform: translateY(-10px);
         }
 
+        /* LOGO */
         .logo-container {
-            width: 110px;
-            height: 110px;
-            margin-bottom: 15px;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 25px;
             border-radius: 50%;
             overflow: hidden;
-            border: 1px solid var(--border-gray);
-            background: #111;
+            border: 2px solid var(--accent-white);
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
 
         .logo-container img {
@@ -113,29 +115,29 @@
         }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            margin: 0 0 8px 0;
+            margin: 0 0 12px 0;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         p.subtitle {
             color: var(--text-dim);
             text-align: center;
-            margin: 0 0 20px 0;
-            font-size: 0.8rem;
-            max-width: 300px;
-            line-height: 1.4;
+            margin: 0 0 30px 0;
+            font-size: 0.85rem;
+            max-width: 320px;
+            line-height: 1.5;
         }
 
-        /* BUTTONS & GRIDS */
+        /* PULSANTI E GRIGLIE */
         .option-grid {
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
         }
 
         .full-width {
@@ -145,35 +147,50 @@
         .option-btn {
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
-            padding: 14px 10px;
-            border-radius: 4px;
+            padding: 18px 10px;
+            border-radius: 8px;
             color: white;
-            text-align: center;
+            text-align: center; /* Forza centratura */
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             text-transform: uppercase;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
+            align-items: center; /* Forza centratura */
             justify-content: center;
             backdrop-filter: blur(10px);
             user-select: none;
         }
 
-        .option-btn .label { font-weight: 800; font-size: 0.75rem; }
-        .option-btn .sub-label { font-size: 0.6rem; opacity: 0.6; font-weight: 400; text-transform: none; }
+        .option-btn .label { 
+            font-weight: 800; 
+            font-size: 0.85rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .option-btn .sub-label { 
+            font-size: 0.65rem; 
+            opacity: 0.6; 
+            font-weight: 400; 
+            text-transform: none; 
+            width: 100%;
+            text-align: center;
+        }
         
         .option-btn.selected {
             border-color: var(--accent-white);
             background: var(--accent-white);
             color: black;
+            transform: scale(1.02);
         }
 
-        /* STYLE SELECTION CARDS */
+        /* STILI CARDS */
         .style-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 15px;
             width: 100%;
             max-height: 55vh;
             overflow-y: auto;
@@ -183,102 +200,76 @@
         .style-card {
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            transition: border-color 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
         .style-card img {
             width: 100%;
-            height: 130px;
+            height: 140px;
             object-fit: cover;
-            filter: brightness(0.7);
+            filter: brightness(0.6);
             display: block;
             transition: filter 0.3s;
         }
 
         .style-card .info {
-            padding: 12px 8px;
+            padding: 15px 10px;
             text-align: center;
             font-weight: 800;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            min-height: 45px;
+            background: rgba(0,0,0,0.6);
+            min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            line-height: 1.2;
         }
 
-        .style-card.selected {
-            border-color: var(--accent-white);
-        }
+        .style-card.selected { border-color: var(--accent-white); }
+        .style-card.selected img { filter: brightness(1); }
+        .style-card.selected .info { background: var(--accent-white); color: black; }
 
-        .style-card.selected img {
-            filter: brightness(1);
-        }
-
-        .style-card.selected .info {
-            background: var(--accent-white);
-            color: black;
-        }
-
-        /* DAYS GRID */
+        /* GIORNI E ORARI */
         .selection-label {
             width: 100%;
-            font-size: 0.65rem;
-            font-weight: 700;
+            font-size: 0.7rem;
+            font-weight: 800;
             text-transform: uppercase;
             color: var(--text-dim);
-            margin: 15px 0 5px 0;
-            text-align: left;
+            margin: 20px 0 10px 0;
+            text-align: center;
         }
 
         .days-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
             width: 100%;
             margin-bottom: 10px;
-        }
-
-        @media (max-width: 400px) {
-            .days-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
         }
 
         .times-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 10px;
             width: 100%;
         }
 
-        .small-btn {
-            padding: 12px 2px;
-            font-size: 0.6rem;
-        }
-
-        /* ARTISTS SELECTION */
+        /* ARTISTI */
         .team-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 15px;
             width: 100%;
         }
 
         .artist-card {
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
-            border-radius: 6px;
+            border-radius: 12px;
             overflow: hidden;
             text-align: center;
             cursor: pointer;
@@ -287,92 +278,79 @@
 
         .artist-card img {
             width: 100%;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
-            filter: grayscale(20%);
         }
 
         .artist-card .name {
-            padding: 10px;
+            padding: 12px;
             font-weight: 800;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
         }
 
-        .artist-card.selected {
-            border-color: var(--accent-white);
+        .artist-card.selected { border-color: var(--accent-white); }
+        .artist-card.selected .name { background: var(--accent-white); color: black; }
+
+        /* PIERCING PRESETS */
+        .piercing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
-        .artist-card.selected .name {
-            background: var(--accent-white);
-            color: black;
-        }
-
-        .no-pref-card {
-            grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.05);
-            border: 1px dashed var(--border-gray);
-            min-height: 50px !important;
-            margin-top: 5px;
-        }
-
-        /* FORMS */
+        /* INPUTS */
         input[type="text"], textarea {
             width: 100%;
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
-            padding: 16px;
-            border-radius: 4px;
+            padding: 18px;
+            border-radius: 8px;
             color: white;
             font-size: 1rem;
             outline: none;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
         }
 
         textarea {
             text-align: left;
-            height: 90px;
-            font-size: 0.85rem;
+            height: 110px;
+            font-size: 0.9rem;
+            resize: none;
         }
 
         .btn-primary {
             background: var(--accent-white);
             border: none;
-            padding: 18px;
-            border-radius: 4px;
+            padding: 20px;
+            border-radius: 8px;
             color: black;
             font-weight: 900;
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             width: 100%;
             cursor: pointer;
-            margin-top: 5px;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+            transition: transform 0.2s;
         }
+
+        .btn-primary:active { transform: scale(0.98); }
 
         .btn-back {
             background: transparent;
-            color: #555;
+            color: var(--text-dim);
             border: none;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 25px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: underline;
         }
-
-        /* Piercing Quick Grid */
-        .piercing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
     </style>
 </head>
 <body>
@@ -387,13 +365,17 @@
         <section>
             <div class="content-wrapper">
                 <div class="logo-container">
-                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=200" alt="Logo" onerror="this.style.opacity='0'">
+                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300" alt="SkinArt Logo">
                 </div>
                 <h2>SkinArt Studio</h2>
-                <p class="subtitle">Seleziona il servizio desiderato</p>
+                <p class="subtitle">Benvenuto. Scegli il servizio per iniziare la tua prenotazione.</p>
                 <div class="option-grid">
-                    <button class="option-btn full-width" onclick="startFlow('tattoo')"><span class="label">Tatuaggio</span></button>
-                    <button class="option-btn full-width" onclick="startFlow('piercing')"><span class="label">Piercing</span></button>
+                    <button class="option-btn full-width" onclick="startFlow('tattoo')">
+                        <span class="label">Tatuaggio</span>
+                    </button>
+                    <button class="option-btn full-width" onclick="startFlow('piercing')">
+                        <span class="label">Piercing</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -402,32 +384,34 @@
         <section>
             <div class="content-wrapper">
                 <h2>Grandezza</h2>
+                <p class="subtitle">Indica la dimensione approssimativa del tatuaggio</p>
                 <div class="option-grid">
                     <div class="option-btn" onclick="selectTattooOption('size', 'Piccolo', this)">
                         <span class="label">Piccolo</span>
-                        <span class="sub-label">~ 5 cm</span>
+                        <span class="sub-label">fino a 5 cm</span>
                     </div>
                     <div class="option-btn" onclick="selectTattooOption('size', 'Medio', this)">
                         <span class="label">Medio</span>
-                        <span class="sub-label">~ 15 cm</span>
+                        <span class="sub-label">fino a 15 cm</span>
                     </div>
                     <div class="option-btn" onclick="selectTattooOption('size', 'Grande', this)">
                         <span class="label">Grande</span>
-                        <span class="sub-label">~ 25+ cm</span>
+                        <span class="sub-label">oltre 20 cm</span>
                     </div>
                     <div class="option-btn" onclick="selectTattooOption('size', 'Intero', this)">
                         <span class="label">Intero</span>
-                        <span class="sub-label">Schiena/Braccio</span>
+                        <span class="sub-label">Soggetti complessi</span>
                     </div>
                 </div>
-                <button class="btn-back" onclick="goToStep(0)">Indietro</button>
+                <button class="btn-back" onclick="goToStep(0)">Torna Indietro</button>
             </div>
         </section>
 
         <!-- TATTOO: STILE (STEP 2) -->
         <section>
             <div class="content-wrapper">
-                <h2>Scegli lo Stile</h2>
+                <h2>Stile</h2>
+                <p class="subtitle">Quale stile preferisci per questo progetto?</p>
                 <div class="style-grid">
                     <div class="style-card" onclick="selectTattooStyle(this, 'Fine Line')">
                         <img src="https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=400" alt="Fine Line">
@@ -439,15 +423,11 @@
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Geometrico')">
                         <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400" alt="Geometrico">
-                        <div class="info">Geometrico / Blackwork</div>
+                        <div class="info">Geometrico</div>
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Manga')">
                         <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400" alt="Manga">
                         <div class="info">Manga / Cartoon</div>
-                    </div>
-                    <div class="style-card full-width" onclick="selectTattooStyle(this, 'Altro')">
-                        <img src="https://images.unsplash.com/photo-1542462864-342dc36da902?w=800" alt="Altro">
-                        <div class="info">Altro Stile</div>
                     </div>
                 </div>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
@@ -457,23 +437,24 @@
         <!-- TATTOO: PROGETTO (STEP 3) -->
         <section>
             <div class="content-wrapper">
-                <h2>Stato Progetto</h2>
+                <h2>Idea Progetto</h2>
+                <p class="subtitle">A che punto è la tua idea?</p>
                 <div class="option-grid">
                     <div class="option-btn" onclick="selectTattooOption('status', 'Disegno pronto', this)"><span class="label">Ho il disegno</span></div>
-                    <div class="option-btn" onclick="selectTattooOption('status', 'Solo idea', this)"><span class="label">Solo idea</span></div>
-                    <div class="option-btn full-width" onclick="selectTattooOption('status', 'Da zero', this)"><span class="label">Voglio partire da zero</span></div>
+                    <div class="option-btn" onclick="selectTattooOption('status', 'Solo idea', this)"><span class="label">Ho un'idea</span></div>
+                    <div class="option-btn full-width" onclick="selectTattooOption('status', 'Da zero', this)"><span class="label">Voglio una consulenza</span></div>
                 </div>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
             </div>
         </section>
 
-        <!-- TATTOO: PREFERENZA TATUATORE (STEP 4) -->
+        <!-- TATTOO: TATUATORE (STEP 4) -->
         <section>
             <div class="content-wrapper">
                 <h2>Tatuatore</h2>
-                <p class="subtitle">Seleziona in base allo stile scelto</p>
+                <p class="subtitle">I nostri specialisti per lo stile scelto</p>
                 <div class="team-grid" id="tattoo-artist-list">
-                    <!-- Popolato via JS -->
+                    <!-- Dinamico -->
                 </div>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
             </div>
@@ -482,84 +463,68 @@
         <!-- PIERCING: ZONA (STEP 5) -->
         <section id="step-piercing-zone">
             <div class="content-wrapper">
-                <h2>Tipo Piercing</h2>
-                <p class="subtitle">Seleziona o scrivi la zona</p>
-                
+                <h2>Piercing</h2>
+                <p class="subtitle">Scegli la zona o scrivi un'altra posizione</p>
                 <div class="piercing-grid">
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Naso', this)"><span class="label">Naso</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Ombelico', this)"><span class="label">Ombelico</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Helix', this)"><span class="label">Helix</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Lobo', this)"><span class="label">Lobo</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Lingua', this)"><span class="label">Lingua</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Sopracciglio', this)"><span class="label">Sopracciglio</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Trago', this)"><span class="label">Trago</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Septum', this)"><span class="label">Septum</span></div>
-                    <div class="option-btn small-btn" onclick="selectPiercingPreset('Labret', this)"><span class="label">Labret</span></div>
+                    <div class="option-btn" onclick="selectPiercingPreset('Naso', this)"><span class="label">Naso</span></div>
+                    <div class="option-btn" onclick="selectPiercingPreset('Ombelico', this)"><span class="label">Ombelico</span></div>
+                    <div class="option-btn" onclick="selectPiercingPreset('Helix', this)"><span class="label">Helix</span></div>
+                    <div class="option-btn" onclick="selectPiercingPreset('Lobo', this)"><span class="label">Lobo</span></div>
+                    <div class="option-btn" onclick="selectPiercingPreset('Lingua', this)"><span class="label">Lingua</span></div>
+                    <div class="option-btn" onclick="selectPiercingPreset('Septum', this)"><span class="label">Septum</span></div>
                 </div>
-
-                <input type="text" id="piercingZone" placeholder="Oppure scrivi qui...">
-                
-                <div class="artist-card full-width" style="margin-top: 10px; cursor: default; display: flex; align-items: center; border: none; background: rgba(255,255,255,0.05);">
-                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" style="width: 60px; height: 60px; border-radius: 50%; margin: 10px;">
-                    <div class="name" style="background:transparent; color: white;">Ivan - Piercer</div>
-                </div>
-                
-                <button class="btn-primary" onclick="confirmPiercingZone()" style="margin-top: 15px;">Continua</button>
+                <input type="text" id="piercingZone" placeholder="Altra zona...">
+                <button class="btn-primary" onclick="confirmPiercingZone()">Continua</button>
                 <button class="btn-back" onclick="goToStep(0)">Indietro</button>
             </div>
         </section>
 
-        <!-- COMUNE: DISPONIBILITÀ (STEP 6 - Salta per Piercing) -->
+        <!-- COMUNE: CALENDARIO (STEP 6 - Solo Tattoo) -->
         <section>
             <div class="content-wrapper">
                 <h2>Disponibilità</h2>
-                <p class="subtitle">Seleziona i giorni e le fasce orarie</p>
-                
-                <div class="option-btn full-width" id="btn-always" onclick="toggleAlwaysAvailable()" style="margin-bottom: 20px;">
+                <p class="subtitle">Quando preferiresti venire in studio?</p>
+                <div class="option-btn full-width" id="btn-always" onclick="toggleAlwaysAvailable()" style="margin-bottom: 10px;">
                     <span class="label">Sempre Disponibile</span>
                 </div>
-
-                <div class="selection-label">Giorni</div>
-                <div class="days-grid" id="days-container">
-                    <div class="option-btn small-btn day-btn" onclick="toggleMultiSelect('days', 'Lun', this)"><span class="label">Lun</span></div>
-                    <div class="option-btn small-btn day-btn" onclick="toggleMultiSelect('days', 'Mar', this)"><span class="label">Mar</span></div>
-                    <div class="option-btn small-btn day-btn" onclick="toggleMultiSelect('days', 'Mer', this)"><span class="label">Mer</span></div>
-                    <div class="option-btn small-btn day-btn" onclick="toggleMultiSelect('days', 'Gio', this)"><span class="label">Gio</span></div>
-                    <div class="option-btn small-btn day-btn" onclick="toggleMultiSelect('days', 'Ven', this)"><span class="label">Ven</span></div>
-                    <div class="option-btn small-btn day-btn" onclick="toggleMultiSelect('days', 'Sab', this)"><span class="label">Sab</span></div>
-                    <div class="option-btn small-btn day-btn" onclick="toggleMultiSelect('days', 'Dom', this)"><span class="label">Dom</span></div>
+                <div class="selection-label">Giorni preferiti</div>
+                <div class="days-grid">
+                    <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Lun', this)"><span class="label">Lun</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Mar', this)"><span class="label">Mar</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Mer', this)"><span class="label">Mer</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Gio', this)"><span class="label">Gio</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Ven', this)"><span class="label">Ven</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Sab', this)"><span class="label">Sab</span></div>
                 </div>
-
-                <div class="selection-label">Orario</div>
-                <div class="times-grid" id="times-container">
-                    <div class="option-btn small-btn time-btn" onclick="toggleMultiSelect('times', 'Mattino', this)"><span class="label">Mattino</span></div>
-                    <div class="option-btn small-btn time-btn" onclick="toggleMultiSelect('times', 'Pomeriggio', this)"><span class="label">Pomeriggio</span></div>
-                    <div class="option-btn small-btn time-btn" onclick="toggleMultiSelect('times', 'Sera', this)"><span class="label">Sera</span></div>
+                <div class="selection-label">Fascia oraria</div>
+                <div class="times-grid">
+                    <div class="option-btn time-btn" onclick="toggleMultiSelect('times', 'Mattina', this)"><span class="label">Mattina</span></div>
+                    <div class="option-btn time-btn" onclick="toggleMultiSelect('times', 'Pomeriggio', this)"><span class="label">Pome</span></div>
+                    <div class="option-btn time-btn" onclick="toggleMultiSelect('times', 'Sera', this)"><span class="label">Sera</span></div>
                 </div>
-
-                <button class="btn-primary" onclick="validateAvailability()" style="margin-top: 25px;">Continua</button>
+                <button class="btn-primary" onclick="validateAvailability()" style="margin-top: 20px;">Continua</button>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
             </div>
         </section>
 
-        <!-- COMUNE: ALTRE INFO (STEP 7) -->
+        <!-- COMUNE: NOTE (STEP 7) -->
         <section>
             <div class="content-wrapper">
-                <h2>Altre info utili</h2>
-                <p class="subtitle">Note, allergie o dettagli aggiuntivi</p>
-                <textarea id="otherInfo" placeholder="Scrivi qui eventuali dettagli..."></textarea>
+                <h2>Dettagli</h2>
+                <p class="subtitle">Note aggiuntive o allergie particolari</p>
+                <textarea id="otherInfo" placeholder="Inserisci qui eventuali dettagli utili..."></textarea>
                 <button class="btn-primary" onclick="nextStep()">Continua</button>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
             </div>
         </section>
 
-        <!-- FINALE: NOME E INVIO (STEP 8) -->
+        <!-- FINALE: NOME (STEP 8) -->
         <section>
             <div class="content-wrapper">
-                <h2>Ultimo Passo</h2>
-                <p class="subtitle">Inserisci il tuo nome per completare</p>
+                <h2>Prenota</h2>
+                <p class="subtitle">Inserisci il tuo nome per inviare la richiesta</p>
                 <input type="text" id="userName" placeholder="IL TUO NOME">
-                <button class="btn-primary" onclick="sendWhatsApp()">Invia su WhatsApp</button>
+                <button class="btn-primary" onclick="sendWhatsApp()">Invia Richiesta</button>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
             </div>
         </section>
@@ -568,57 +533,42 @@
 
     <script>
         let step = 0;
-        let flow = ''; 
+        let flow = '';
         const slider = document.getElementById('slider');
         const bar = document.getElementById('progress-fill');
-        const totalStepsCount = 8;
+        const totalSteps = 8;
         
         let data = { 
             type: '', size: '', style: '', status: '', artist: '', 
-            piercingZone: '', timing: '', info: '', name: '',
+            piercingZone: '', info: '', name: '',
             selectedDays: [], selectedTimes: []
         };
 
         const artists = [
-            { name: 'Biagio', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Fine Line', 'Realistico', 'Geometrico', 'Altro'] },
-            { name: 'Domenica', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Fine Line', 'Altro'] },
-            { name: 'Jacopo', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Manga', 'Altro'] },
-            { name: 'Evita', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Manga', 'Altro'] }
+            { name: 'Biagio', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Fine Line', 'Realistico', 'Geometrico'] },
+            { name: 'Domenica', img: 'https://images.unsplash.com/photo-1542462864-342dc36da902?w=400', styles: ['Fine Line'] },
+            { name: 'Jacopo', img: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400', styles: ['Manga'] },
+            { name: 'Evita', img: 'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400', styles: ['Manga'] }
         ];
 
         function updateUI() {
             slider.style.transform = `translateX(-${step * 100}vw)`;
-            bar.style.width = `${(step / totalStepsCount) * 100}%`;
+            bar.style.width = `${(step / totalSteps) * 100}%`;
         }
 
         function goToStep(s) { step = s; updateUI(); }
         function nextStep() { step++; updateUI(); }
         
         function prevStep() { 
-            if(flow === 'piercing' && step === 5) { step = 0; }
-            else if(flow === 'piercing' && step === 7) { step = 5; } // Piercing torna a zona
-            else if(flow === 'tattoo' && step === 1) { step = 0; }
-            else if(flow === 'tattoo' && step === 6) { 
-                const filtered = artists.filter(a => a.styles.includes(data.style));
-                step = (filtered.length > 1) ? 4 : 3; 
-            } 
-            else { step--; }
-            updateUI(); 
+            if(flow === 'piercing' && step === 7) step = 5; 
+            else step--;
+            updateUI();
         }
 
         function startFlow(type) {
             flow = type;
             data.type = type;
-            // Reset availability for fresh flows
-            data.selectedDays = [];
-            data.selectedTimes = [];
-            
-            if(type === 'tattoo') { 
-                step = 1; 
-            } else { 
-                step = 5; 
-                data.artist = 'Ivan (Piercer)';
-            }
+            step = (type === 'tattoo') ? 1 : 5;
             updateUI();
         }
 
@@ -655,14 +605,14 @@
                 list.appendChild(card);
             });
 
-            if (filtered.length === 1) {
+            if (filtered.length > 1) {
+                const noPref = document.createElement('div');
+                noPref.className = 'artist-card';
+                noPref.onclick = () => selectArtist('Senza preferenza', noPref);
+                noPref.innerHTML = `<div style="height:160px; display:flex; align-items:center; justify-content:center; background:#222">Nessuna</div><div class="name">Nessuna</div>`;
+                list.appendChild(noPref);
+            } else if (filtered.length === 1) {
                 data.artist = filtered[0].name;
-            } else if (filtered.length > 1) {
-                const noPrefCard = document.createElement('div');
-                noPrefCard.className = 'artist-card no-pref-card';
-                noPrefCard.onclick = () => selectArtist('Senza preferenze', noPrefCard);
-                noPrefCard.innerHTML = `<div class="name">Senza preferenza</div>`;
-                list.appendChild(noPrefCard);
             }
 
             setTimeout(nextStep, 300);
@@ -683,83 +633,57 @@
         }
 
         function confirmPiercingZone() {
-            const inputVal = document.getElementById('piercingZone').value;
-            if(inputVal) data.piercingZone = inputVal;
-            if(!data.piercingZone) return;
-            
-            // Per il Piercing, saltiamo lo step 6 (Disponibilità) e andiamo al 7 (Altre Info)
-            step = 7;
+            const val = document.getElementById('piercingZone').value;
+            if(!val) return;
+            data.piercingZone = val;
+            data.artist = "Ivan";
+            step = 7; // Salta calendario
             updateUI();
+        }
+
+        function toggleMultiSelect(type, val, el) {
+            const key = type === 'days' ? 'selectedDays' : 'selectedTimes';
+            const i = data[key].indexOf(val);
+            if(i > -1) { data[key].splice(i,1); el.classList.remove('selected'); }
+            else { data[key].push(val); el.classList.add('selected'); }
         }
 
         function toggleAlwaysAvailable() {
             const btn = document.getElementById('btn-always');
-            const allDayBtns = document.querySelectorAll('.day-btn');
-            const allTimeBtns = document.querySelectorAll('.time-btn');
-            
-            if (data.selectedDays.length === 7 && data.selectedTimes.length === 3) {
-                data.selectedDays = [];
-                data.selectedTimes = [];
+            if(data.selectedDays.length === 6) {
+                data.selectedDays = []; data.selectedTimes = [];
                 btn.classList.remove('selected');
-                allDayBtns.forEach(b => b.classList.remove('selected'));
-                allTimeBtns.forEach(b => b.classList.remove('selected'));
+                document.querySelectorAll('.day-btn, .time-btn').forEach(b => b.classList.remove('selected'));
             } else {
-                data.selectedDays = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
-                data.selectedTimes = ['Mattino', 'Pomeriggio', 'Sera'];
+                data.selectedDays = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+                data.selectedTimes = ['Mattina', 'Pomeriggio', 'Sera'];
                 btn.classList.add('selected');
-                allDayBtns.forEach(b => b.classList.add('selected'));
-                allTimeBtns.forEach(b => b.classList.add('selected'));
-            }
-        }
-
-        function toggleMultiSelect(type, val, el) {
-            const listKey = type === 'days' ? 'selectedDays' : 'selectedTimes';
-            const index = data[listKey].indexOf(val);
-            
-            if (index > -1) {
-                data[listKey].splice(index, 1);
-                el.classList.remove('selected');
-            } else {
-                data[listKey].push(val);
-                el.classList.add('selected');
-            }
-
-            const btnAlways = document.getElementById('btn-always');
-            if (data.selectedDays.length === 7 && data.selectedTimes.length === 3) {
-                btnAlways.classList.add('selected');
-            } else {
-                btnAlways.classList.remove('selected');
+                document.querySelectorAll('.day-btn, .time-btn').forEach(b => b.classList.add('selected'));
             }
         }
 
         function validateAvailability() {
-            if (data.selectedDays.length === 0 || data.selectedTimes.length === 0) return;
+            if(data.selectedDays.length === 0 || data.selectedTimes.length === 0) return;
             nextStep();
         }
 
         function sendWhatsApp() {
             data.name = document.getElementById('userName').value;
             data.info = document.getElementById('otherInfo').value;
-
             if(!data.name) return;
 
-            const phone = "3335442533";
-            let message = `*NUOVA RICHIESTA ${data.type.toUpperCase()}*%0A%0A`;
-            message += `👤 *Nome:* ${data.name}%0A`;
+            let msg = `*NUOVA RICHIESTA ${data.type.toUpperCase()}*%0A%0A`;
+            msg += `👤 *Nome:* ${data.name}%0A`;
             
             if(data.type === 'tattoo') {
-                message += `📏 *Misura:* ${data.size}%0A🎨 *Stile:* ${data.style}%0A📝 *Stato:* ${data.status}%0A✍️ *Artista:* ${data.artist}%0A`;
-                let availabilityText = (data.selectedDays.length === 7 && data.selectedTimes.length === 3) 
-                    ? "Sempre Disponibile" 
-                    : `${data.selectedDays.join(', ')} (${data.selectedTimes.join('/')})`;
-                message += `⏰ *Disponibilità:* ${availabilityText}%0A`;
+                msg += `📏 *Misura:* ${data.size}%0A🎨 *Stile:* ${data.style}%0A✨ *Artista:* ${data.artist}%0A`;
+                msg += `📅 *Giorni:* ${data.selectedDays.join(', ')}%0A⏰ *Orari:* ${data.selectedTimes.join(', ')}%0A`;
             } else {
-                message += `📍 *Zona Piercing:* ${data.piercingZone}%0A💎 *Piercer:* Ivan%0A`;
+                msg += `📍 *Zona:* ${data.piercingZone}%0A💎 *Piercer:* Ivan%0A`;
             }
-
-            message += `ℹ️ *Altre info:* ${data.info || 'Nessuna'}`;
+            msg += `📝 *Note:* ${data.info || 'Nessuna'}`;
             
-            window.open(`https://wa.me/39${phone}?text=${message}`, '_blank');
+            window.open(`https://wa.me/393335442533?text=${msg}`, '_blank');
         }
     </script>
 </body>
