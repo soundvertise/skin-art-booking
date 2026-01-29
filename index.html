@@ -79,8 +79,8 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centratura verticale */
-            align-items: center;     /* Centratura orizzontale */
+            justify-content: center;
+            align-items: center;
             flex-shrink: 0;
         }
 
@@ -90,13 +90,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Rimosso il transform verso il basso */
+            transform: translateY(-10px);
         }
 
         .logo-container {
             width: 110px;
             height: 110px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-radius: 50%;
             overflow: hidden;
             border: 1px solid var(--border-gray);
@@ -115,7 +115,7 @@
         h2 {
             font-size: 1.5rem;
             font-weight: 900;
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -124,10 +124,10 @@
         p.subtitle {
             color: var(--text-dim);
             text-align: center;
-            margin: 0 0 25px 0;
+            margin: 0 0 20px 0;
             font-size: 0.8rem;
-            max-width: 320px;
-            line-height: 1.5;
+            max-width: 300px;
+            line-height: 1.4;
         }
 
         /* BUTTONS & GRIDS */
@@ -135,7 +135,7 @@
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .full-width {
@@ -145,8 +145,8 @@
         .option-btn {
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
-            padding: 16px 10px;
-            border-radius: 6px;
+            padding: 14px 10px;
+            border-radius: 4px;
             color: white;
             text-align: center;
             cursor: pointer;
@@ -160,8 +160,8 @@
             user-select: none;
         }
 
-        .option-btn .label { font-weight: 800; font-size: 0.8rem; }
-        .option-btn .sub-label { font-size: 0.65rem; opacity: 0.6; font-weight: 400; text-transform: none; }
+        .option-btn .label { font-weight: 800; font-size: 0.75rem; }
+        .option-btn .sub-label { font-size: 0.6rem; opacity: 0.6; font-weight: 400; text-transform: none; }
         
         .option-btn.selected {
             border-color: var(--accent-white);
@@ -172,18 +172,18 @@
         /* TIME & DAYS GRID */
         .selection-label {
             width: 100%;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-dim);
-            margin: 20px 0 10px 0;
+            margin: 15px 0 5px 0;
             text-align: left;
         }
 
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
+            gap: 5px;
             width: 100%;
             margin-bottom: 10px;
         }
@@ -203,13 +203,13 @@
 
         .small-btn {
             padding: 12px 2px;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
         }
 
         .style-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
             max-height: 55vh;
             overflow-y: auto;
@@ -219,7 +219,7 @@
         .style-card {
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
             position: relative;
@@ -227,17 +227,17 @@
 
         .style-card img {
             width: 100%;
-            height: 130px;
+            height: 120px;
             object-fit: cover;
             filter: brightness(0.7);
             display: block;
         }
 
         .style-card .info {
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             font-weight: 700;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
         }
 
@@ -254,14 +254,14 @@
         .team-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
         }
 
         .artist-card {
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
             text-align: center;
             cursor: pointer;
@@ -270,15 +270,15 @@
 
         .artist-card img {
             width: 100%;
-            height: 160px;
+            height: 150px;
             object-fit: cover;
             filter: grayscale(20%);
         }
 
         .artist-card .name {
-            padding: 12px;
+            padding: 10px;
             font-weight: 800;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
         }
 
@@ -293,13 +293,13 @@
 
         /* "No Preference" Full Width Style */
         .no-pref-card {
-            grid-column: 1 / -1; 
+            grid-column: 1 / -1; /* Forza l'espansione su tutte le colonne */
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(255,255,255,0.05);
             border: 1px dashed var(--border-gray);
-            min-height: 55px !important;
+            min-height: 50px !important;
             margin-top: 5px;
         }
 
@@ -314,51 +314,50 @@
             background: var(--card-bg);
             border: 1px solid var(--border-gray);
             padding: 16px;
-            border-radius: 6px;
+            border-radius: 4px;
             color: white;
             font-size: 1rem;
             outline: none;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         textarea {
             text-align: left;
-            height: 100px;
-            font-size: 0.9rem;
+            height: 90px;
+            font-size: 0.85rem;
         }
 
         .btn-primary {
             background: var(--accent-white);
             border: none;
-            padding: 20px;
-            border-radius: 6px;
+            padding: 18px;
+            border-radius: 4px;
             color: black;
             font-weight: 900;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             width: 100%;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .btn-back {
             background: transparent;
-            color: #777;
+            color: #555;
             border: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 15px;
             text-transform: uppercase;
-            font-weight: 600;
         }
 
         /* Piercing Quick Grid */
         .piercing-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: 8px;
             width: 100%;
             margin-bottom: 15px;
         }
@@ -380,7 +379,7 @@
                     <img src="profile.jpg" alt="Logo" onerror="this.style.opacity='0'">
                 </div>
                 <h2>SkinArt Studio</h2>
-                <p class="subtitle">Benvenuto. Seleziona il servizio per ricevere un preventivo personalizzato.</p>
+                <p class="subtitle">Seleziona il servizio desiderato</p>
                 <div class="option-grid">
                     <button class="option-btn full-width" onclick="startFlow('tattoo')"><span class="label">Tatuaggio</span></button>
                     <button class="option-btn full-width" onclick="startFlow('piercing')"><span class="label">Piercing</span></button>
@@ -392,7 +391,6 @@
         <section>
             <div class="content-wrapper">
                 <h2>Grandezza</h2>
-                <p class="subtitle">Indica la dimensione approssimativa</p>
                 <div class="option-grid">
                     <div class="option-btn" onclick="selectTattooOption('size', 'Piccolo', this)">
                         <span class="label">Piccolo</span>
@@ -474,7 +472,7 @@
         <section id="step-piercing-zone">
             <div class="content-wrapper">
                 <h2>Tipo Piercing</h2>
-                <p class="subtitle">Seleziona o scrivi la zona desiderata</p>
+                <p class="subtitle">Seleziona o scrivi la zona</p>
                 
                 <div class="piercing-grid">
                     <div class="option-btn small-btn" onclick="selectPiercingPreset('Naso', this)"><span class="label">Naso</span></div>
@@ -492,7 +490,7 @@
                 
                 <div class="artist-card full-width" style="margin-top: 10px; cursor: default; display: flex; align-items: center; border: none; background: rgba(255,255,255,0.05);">
                     <img src="ivan.jpeg" style="width: 60px; height: 60px; border-radius: 50%; margin: 10px;" onerror="this.src='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100';">
-                    <div class="name" style="background:transparent; color: white;">Ivan - Piercer Specializzato</div>
+                    <div class="name" style="background:transparent; color: white;">Ivan - Piercer</div>
                 </div>
                 
                 <button class="btn-primary" onclick="confirmPiercingZone()" style="margin-top: 15px;">Continua</button>
@@ -504,7 +502,7 @@
         <section>
             <div class="content-wrapper">
                 <h2>Disponibilità</h2>
-                <p class="subtitle">Quando preferisci venire in studio?</p>
+                <p class="subtitle">Seleziona i giorni e le fasce orarie</p>
                 
                 <div class="option-btn full-width" id="btn-always" onclick="toggleAlwaysAvailable()" style="margin-bottom: 20px;">
                     <span class="label">Sempre Disponibile</span>
@@ -537,7 +535,7 @@
         <section>
             <div class="content-wrapper">
                 <h2>Altre info utili</h2>
-                <p class="subtitle">Note, allergie o dettagli aggiuntivi che vorresti comunicarci</p>
+                <p class="subtitle">Note, allergie o dettagli aggiuntivi</p>
                 <textarea id="otherInfo" placeholder="Scrivi qui eventuali dettagli..."></textarea>
                 <button class="btn-primary" onclick="nextStep()">Continua</button>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
@@ -548,7 +546,7 @@
         <section>
             <div class="content-wrapper">
                 <h2>Ultimo Passo</h2>
-                <p class="subtitle">Il tuo nome per permetterci di ricontattarti</p>
+                <p class="subtitle">Inserisci il tuo nome per completare</p>
                 <input type="text" id="userName" placeholder="IL TUO NOME">
                 <button class="btn-primary" onclick="sendWhatsApp()">Invia su WhatsApp</button>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
@@ -612,6 +610,7 @@
             el.closest('section').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             
+            // Logica specifica per lo Step 3 (Stato Progetto) verso lo Step 6 o 4
             if (key === 'status') {
                 const filtered = artists.filter(a => a.styles.includes(data.style));
                 setTimeout(() => {
@@ -632,6 +631,7 @@
             list.innerHTML = '';
             const filtered = artists.filter(a => a.styles.includes(style));
             
+            // Popolamento lista artisti
             filtered.forEach(a => {
                 const card = document.createElement('div');
                 card.className = 'artist-card';
@@ -640,9 +640,11 @@
                 list.appendChild(card);
             });
 
+            // Se c'è un solo artista per quello stile, viene salvato subito
             if (filtered.length === 1) {
                 data.artist = filtered[0].name;
             } else if (filtered.length > 1) {
+                // Aggiunta pulsante "Senza preferenze" centrato in basso (full-width)
                 const noPrefCard = document.createElement('div');
                 noPrefCard.className = 'artist-card no-pref-card';
                 noPrefCard.onclick = () => selectArtist('Senza preferenze', noPrefCard);
