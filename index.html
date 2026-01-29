@@ -36,7 +36,7 @@
             position: fixed;
             top: 0; left: 0; 
             width: 100%; height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=2000'); 
+            background-image: url('background.jpg'); 
             background-size: cover;
             background-position: center;
             z-index: -5; 
@@ -150,14 +150,14 @@
             padding: 18px 10px;
             border-radius: 8px;
             color: white;
-            text-align: center; /* Forza centratura */
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            align-items: center; /* Forza centratura */
+            align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
             user-select: none;
@@ -365,7 +365,7 @@
         <section>
             <div class="content-wrapper">
                 <div class="logo-container">
-                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300" alt="SkinArt Logo">
+                    <img src="profile.jpg" alt="SkinArt Logo" onerror="this.src='https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300'">
                 </div>
                 <h2>SkinArt Studio</h2>
                 <p class="subtitle">Benvenuto. Scegli il servizio per iniziare la tua prenotazione.</p>
@@ -414,19 +414,19 @@
                 <p class="subtitle">Quale stile preferisci per questo progetto?</p>
                 <div class="style-grid">
                     <div class="style-card" onclick="selectTattooStyle(this, 'Fine Line')">
-                        <img src="https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=400" alt="Fine Line">
+                        <img src="fineline.jpg" alt="Fine Line" onerror="this.src='https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=400'">
                         <div class="info">Fine Line</div>
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Realistico')">
-                        <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400" alt="Realistico">
+                        <img src="realistico.jpg" alt="Realistico" onerror="this.src='https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400'">
                         <div class="info">Realistico</div>
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Geometrico')">
-                        <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400" alt="Geometrico">
+                        <img src="blackwork.jpg" alt="Geometrico" onerror="this.src='https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400'">
                         <div class="info">Geometrico</div>
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Manga')">
-                        <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400" alt="Manga">
+                        <img src="cartoon.jpeg" alt="Manga" onerror="this.src='https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400'">
                         <div class="info">Manga / Cartoon</div>
                     </div>
                 </div>
@@ -545,10 +545,10 @@
         };
 
         const artists = [
-            { name: 'Biagio', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Fine Line', 'Realistico', 'Geometrico'] },
-            { name: 'Domenica', img: 'https://images.unsplash.com/photo-1542462864-342dc36da902?w=400', styles: ['Fine Line'] },
-            { name: 'Jacopo', img: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400', styles: ['Manga'] },
-            { name: 'Evita', img: 'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400', styles: ['Manga'] }
+            { name: 'Biagio', img: 'biagio.jpeg', styles: ['Fine Line', 'Realistico', 'Geometrico'] },
+            { name: 'Domenica', img: 'domenica.jpeg', styles: ['Fine Line'] },
+            { name: 'Jacopo', img: 'jacopo.jpeg', styles: ['Manga'] },
+            { name: 'Evita', img: 'evita.jpeg', styles: ['Manga'] }
         ];
 
         function updateUI() {
@@ -601,7 +601,7 @@
                 const card = document.createElement('div');
                 card.className = 'artist-card';
                 card.onclick = () => selectArtist(a.name, card);
-                card.innerHTML = `<img src="${a.img}"><div class="name">${a.name}</div>`;
+                card.innerHTML = `<img src="${a.img}" onerror="this.src='https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400'"><div class="name">${a.name}</div>`;
                 list.appendChild(card);
             });
 
