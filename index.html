@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SkinArt Tattoo & Piercing</title>
+    <!-- Font Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-black: #000000;
+            --card-bg: rgba(17, 17, 17, 0.9);
+            --border-gray: #333333;
+            --accent-white: #ffffff;
+            --text-main: #ffffff;
+            --text-dim: #bbbbbb;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center; /* Centratura verticale globale */
+            justify-content: center;
+        }
+
+        /* SFONDO */
+        .bg-image {
+            position: fixed;
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=2000'); 
+            background-size: cover;
+            background-position: center;
+            z-index: -5; 
+            background-color: #000;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: -4;
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: #111;
+            z-index: 100;
+        }
+
+        #progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-white);
+            transition: width 0.4s ease;
+        }
+
+        /* SLIDER */
+        .main-slider {
+            display: flex;
+            width: 900vw; /* Ridotto al numero effettivo di step */
+            height: 100vh;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        section {
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centra il wrapper verticalmente nel viewport */
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* LOGO */
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border-gray);
+            background: #111;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        p.subtitle {
+            color: var(--text-dim);
+            margin: 0 0 30px 0;
+            font-size: 0.85rem;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        /* BUTTONS */
+        .option-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .option-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gray);
+            padding: 18px 12px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            user-select: none;
+        }
+
+        .option-btn .label { font-weight: 800; font-size: 0.85rem; }
+        .option-btn .sub-label { font-size: 0.65rem; opacity: 0.6; font-weight: 400; text-transform: none; }
+        
+        .option-btn.selected {
+            border-color: var(--accent-white);
+            background: var(--accent-white);
+            color: black;
+            transform: scale(0.98);
+        }
+
+        /* GRID SPECIALI */
+        .selection-label {
+            width: 100%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin: 20px 0 10px 0;
+            text-align: left;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+
+        .times-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+
+        /* STYLE SELECTION */
+        .style-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            max-height: 50vh;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .style-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .style-card img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.6);
+            display: block;
+        }
+
+        .style-card .info {
+            padding: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .style-card.selected { border-color: var(--accent-white); }
+        .style-card.selected img { filter: grayscale(0%) brightness(0.8); }
+        .style-card.selected .info { background: var(--accent-white); color: black; }
+
+        /* ARTISTS */
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .artist-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .artist-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+
+        .artist-card .name {
+            padding: 12px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .artist-card.selected { border-color: var(--accent-white); }
+        .artist-card.selected img { filter: grayscale(0%); }
+        .artist-card.selected .name { background: var(--accent-white); color: black; }
+
+        /* INPUTS */
+        input[type="text"], textarea {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-gray);
+            padding: 18px;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        textarea { text-align: left; height: 100px; resize: none; }
+
+        .btn-primary {
+            background: var(--accent-white);
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            color: black;
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        .btn-back {
+            background: transparent;
+            color: var(--text-dim);
+            border: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 24px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* PIERCING */
+        .piercing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-gray); border-radius: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+    <div class="progress-bar-container"><div id="progress-fill"></div></div>
+
+    <div class="main-slider" id="slider">
+        
+        <!-- STEP 0: HOME -->
+        <section>
+            <div class="content-wrapper">
+                <div class="logo-container">
+                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=200" alt="Studio Logo">
+                </div>
+                <h2>SkinArt Studio</h2>
+                <p class="subtitle">Trasforma la tua idea in arte. Seleziona il servizio per iniziare.</p>
+                <div class="option-grid">
+                    <button class="option-btn full-width" onclick="startFlow('tattoo')"><span class="label">Tatuaggio</span></button>
+                    <button class="option-btn full-width" onclick="startFlow('piercing')"><span class="label">Piercing</span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TATTOO: SIZE (STEP 1) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Grandezza</h2>
+                <p class="subtitle">Quanto sarà grande il tatuaggio?</p>
+                <div class="option-grid">
+                    <div class="option-btn" onclick="selectOption('size', 'Piccolo', this)"><span class="label">Piccolo</span><span class="sub-label">~ 5cm</span></div>
+                    <div class="option-btn" onclick="selectOption('size', 'Medio', this)"><span class="label">Medio</span><span class="sub-label">~ 15cm</span></div>
+                    <div class="option-btn" onclick="selectOption('size', 'Grande', this)"><span class="label">Grande</span><span class="sub-label">~ 25cm</span></div>
+                    <div class="option-btn" onclick="selectOption('size', 'Intero', this)"><span class="label">Intero</span><span class="sub-label">Body Part</span></div>
+                </div>
+                <button class="btn-back" onclick="goToStep(0)">Indietro</button>
+            </div>
+        </section>
+
+        <!-- TATTOO: STYLE (STEP 2) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Stile</h2>
+                <div class="style-grid">
+                    <div class="style-card" onclick="selectStyle(this, 'Fine Line')">
+                        <img src="https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=300"><div class="info">Fine Line</div>
+                    </div>
+                    <div class="style-card" onclick="selectStyle(this, 'Realistico')">
+                        <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300"><div class="info">Realistico</div>
+                    </div>
+                    <div class="style-card" onclick="selectStyle(this, 'Blackwork')">
+                        <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=300"><div class="info">Blackwork</div>
+                    </div>
+                    <div class="style-card" onclick="selectStyle(this, 'Manga')">
+                        <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=300"><div class="info">Manga/Color</div>
+                    </div>
+                </div>
+                <button class="btn-back" onclick="prevStep()">Indietro</button>
+            </div>
+        </section>
+
+        <!-- TATTOO: STATUS (STEP 3) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Progetto</h2>
+                <p class="subtitle">A che punto è la tua idea?</p>
+                <div class="option-grid">
+                    <div class="option-btn full-width" onclick="selectOption('status', 'Disegno pronto', this)"><span class="label">Ho già il disegno</span></div>
+                    <div class="option-btn full-width" onclick="selectOption('status', 'Solo idea', this)"><span class="label">Ho un'idea di base</span></div>
+                    <div class="option-btn full-width" onclick="selectOption('status', 'Da zero', this)"><span class="label">Voglio creare da zero</span></div>
+                </div>
+                <button class="btn-back" onclick="prevStep()">Indietro</button>
+            </div>
+        </section>
+
+        <!-- TATTOO: ARTIST (STEP 4) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Artista</h2>
+                <div class="team-grid" id="artist-list"></div>
+                <button class="btn-back" onclick="prevStep()">Indietro</button>
+            </div>
+        </section>
+
+        <!-- PIERCING (STEP 5) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Zona Piercing</h2>
+                <div class="piercing-grid">
+                    <div class="option-btn" onclick="setPiercing('Naso', this)"><span class="label">Naso</span></div>
+                    <div class="option-btn" onclick="setPiercing('Ombelico', this)"><span class="label">Ombelico</span></div>
+                    <div class="option-btn" onclick="setPiercing('Helix', this)"><span class="label">Helix</span></div>
+                </div>
+                <input type="text" id="pZone" placeholder="Altro (es. Septum, Lobo...)">
+                <button class="btn-primary" onclick="confirmPiercing()">Continua</button>
+                <button class="btn-back" onclick="goToStep(0)">Indietro</button>
+            </div>
+        </section>
+
+        <!-- COMUNE: AVAILABILITY (STEP 6) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Quando?</h2>
+                <div class="option-btn full-width" id="btn-always" onclick="toggleAlways()">
+                    <span class="label">Sempre Disponibile</span>
+                </div>
+                <div class="selection-label">Giorni preferiti</div>
+                <div class="days-grid">
+                    <div class="option-btn day-btn" onclick="toggleMulti('days', 'Lun', this)"><span class="label">Lun</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMulti('days', 'Mar', this)"><span class="label">Mar</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMulti('days', 'Mer', this)"><span class="label">Mer</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMulti('days', 'Gio', this)"><span class="label">Gio</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMulti('days', 'Ven', this)"><span class="label">Ven</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMulti('days', 'Sab', this)"><span class="label">Sab</span></div>
+                </div>
+                <button class="btn-primary" style="margin-top:20px" onclick="nextStep()">Continua</button>
+                <button class="btn-back" onclick="prevStep()">Indietro</button>
+            </div>
+        </section>
+
+        <!-- INFO (STEP 7) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Dettagli</h2>
+                <textarea id="notes" placeholder="Note extra, allergie o posizionamento..."></textarea>
+                <button class="btn-primary" onclick="nextStep()">Continua</button>
+                <button class="btn-back" onclick="prevStep()">Indietro</button>
+            </div>
+        </section>
+
+        <!-- FINALE (STEP 8) -->
+        <section>
+            <div class="content-wrapper">
+                <h2>Contatto</h2>
+                <input type="text" id="uName" placeholder="Il tuo nome">
+                <button class="btn-primary" onclick="finish()">Invia su WhatsApp</button>
+                <button class="btn-back" onclick="prevStep()">Indietro</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        let step = 0;
+        let flow = '';
+        let data = { size:'', style:'', status:'', artist:'', pZone:'', days:[], name:'', notes:'' };
+        
+        const artists = [
+            { name: 'Biagio', styles: ['Fine Line', 'Realistico', 'Blackwork'] },
+            { name: 'Domenica', styles: ['Fine Line'] },
+            { name: 'Jacopo', styles: ['Manga'] },
+            { name: 'Evita', styles: ['Manga'] }
+        ];
+
+        function updateSlider() {
+            document.getElementById('slider').style.transform = `translateX(-${step * 100}vw)`;
+            document.getElementById('progress-fill').style.width = `${(step / 8) * 100}%`;
+        }
+
+        function goToStep(s) { step = s; updateSlider(); }
+        function nextStep() { step++; updateSlider(); }
+        function prevStep() {
+            if (flow === 'piercing' && step === 5) step = 0;
+            else if (flow === 'tattoo' && step === 1) step = 0;
+            else if (step === 6 && flow === 'tattoo') {
+                const list = artists.filter(a => a.styles.includes(data.style));
+                step = list.length > 1 ? 4 : 3;
+            } else {
+                step--;
+            }
+            updateSlider();
+        }
+
+        function startFlow(f) {
+            flow = f;
+            if(f === 'tattoo') step = 1; else step = 5;
+            updateSlider();
+        }
+
+        function selectOption(key, val, el) {
+            data[key] = val;
+            el.closest('section').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+            if(key === 'status') {
+                const list = artists.filter(a => a.styles.includes(data.style));
+                setTimeout(() => { step = list.length > 1 ? 4 : 6; updateSlider(); }, 200);
+            } else {
+                setTimeout(nextStep, 200);
+            }
+        }
+
+        function selectStyle(el, s) {
+            data.style = s;
+            document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            
+            const container = document.getElementById('artist-list');
+            container.innerHTML = '';
+            const filtered = artists.filter(a => a.styles.includes(s));
+            
+            filtered.forEach(a => {
+                const div = document.createElement('div');
+                div.className = 'artist-card';
+                div.onclick = () => { data.artist = a.name; step = 6; updateSlider(); };
+                div.innerHTML = `<img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200"><div class="name">${a.name}</div>`;
+                container.appendChild(div);
+            });
+            
+            if(filtered.length === 1) data.artist = filtered[0].name;
+            setTimeout(nextStep, 200);
+        }
+
+        function setPiercing(val, el) {
+            data.pZone = val;
+            document.getElementById('pZone').value = val;
+            el.closest('section').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function confirmPiercing() {
+            const v = document.getElementById('pZone').value;
+            if(!v) return;
+            data.pZone = v;
+            data.artist = "Ivan (Piercer)";
+            step = 6;
+            updateSlider();
+        }
+
+        function toggleMulti(key, val, el) {
+            const i = data[key].indexOf(val);
+            if(i > -1) data[key].splice(i, 1); else data[key].push(val);
+            el.classList.toggle('selected');
+        }
+
+        function toggleAlways() {
+            data.days = ['Sempre'];
+            step = 7;
+            updateSlider();
+        }
+
+        function finish() {
+            data.name = document.getElementById('uName').value;
+            data.notes = document.getElementById('notes').value;
+            if(!data.name) return;
+
+            const phone = "3335442533";
+            let msg = `*RICHIESTA STUDIO*%0A`;
+            msg += `Nome: ${data.name}%0AServizio: ${flow}%0A`;
+            if(flow === 'tattoo') {
+                msg += `Grandezza: ${data.size}%0AStile: ${data.style}%0AArtista: ${data.artist}%0A`;
+            } else {
+                msg += `Zona: ${data.pZone}%0A`;
+            }
+            msg += `Disponibilità: ${data.days.join(',') || 'Da concordare'}%0ANote: ${data.notes}`;
+            
+            window.open(`https://wa.me/39${phone}?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
