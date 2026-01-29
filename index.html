@@ -36,7 +36,7 @@
             position: fixed;
             top: 0; left: 0; 
             width: 100%; height: 100%;
-            background-image: url('background.jpg'); 
+            background-image: url('https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=2000'); 
             background-size: cover;
             background-position: center;
             z-index: -5; 
@@ -169,7 +169,68 @@
             color: black;
         }
 
-        /* TIME & DAYS GRID */
+        /* STYLE SELECTION CARDS */
+        .style-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            max-height: 55vh;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .style-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s;
+        }
+
+        .style-card img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            filter: brightness(0.7);
+            display: block;
+            transition: filter 0.3s;
+        }
+
+        .style-card .info {
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+        }
+
+        .style-card.selected {
+            border-color: var(--accent-white);
+        }
+
+        .style-card.selected img {
+            filter: brightness(1);
+        }
+
+        .style-card.selected .info {
+            background: var(--accent-white);
+            color: black;
+        }
+
+        /* DAYS GRID */
         .selection-label {
             width: 100%;
             font-size: 0.65rem;
@@ -204,50 +265,6 @@
         .small-btn {
             padding: 12px 2px;
             font-size: 0.6rem;
-        }
-
-        .style-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            width: 100%;
-            max-height: 55vh;
-            overflow-y: auto;
-            padding: 5px;
-        }
-
-        .style-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-gray);
-            border-radius: 6px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .style-card img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            filter: brightness(0.7);
-            display: block;
-        }
-
-        .style-card .info {
-            padding: 8px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-        }
-
-        .style-card.selected {
-            border-color: var(--accent-white);
-        }
-
-        .style-card.selected .info {
-            background: var(--accent-white);
-            color: black;
         }
 
         /* ARTISTS SELECTION */
@@ -291,9 +308,8 @@
             color: black;
         }
 
-        /* "No Preference" Full Width Style */
         .no-pref-card {
-            grid-column: 1 / -1; /* Forza l'espansione su tutte le colonne */
+            grid-column: 1 / -1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -301,11 +317,6 @@
             border: 1px dashed var(--border-gray);
             min-height: 50px !important;
             margin-top: 5px;
-        }
-
-        .no-pref-card .name {
-            padding: 15px !important;
-            width: 100%;
         }
 
         /* FORMS */
@@ -376,7 +387,7 @@
         <section>
             <div class="content-wrapper">
                 <div class="logo-container">
-                    <img src="profile.jpg" alt="Logo" onerror="this.style.opacity='0'">
+                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=200" alt="Logo" onerror="this.style.opacity='0'">
                 </div>
                 <h2>SkinArt Studio</h2>
                 <p class="subtitle">Seleziona il servizio desiderato</p>
@@ -419,24 +430,24 @@
                 <h2>Scegli lo Stile</h2>
                 <div class="style-grid">
                     <div class="style-card" onclick="selectTattooStyle(this, 'Fine Line')">
-                        <img src="fineline.jpg" alt="Fine Line" onerror="this.src='https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=400';">
+                        <img src="https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=400" alt="Fine Line">
                         <div class="info">Fine Line</div>
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Realistico')">
-                        <img src="realistico.jpg" alt="Realistico" onerror="this.src='https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400';">
+                        <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400" alt="Realistico">
                         <div class="info">Realistico</div>
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Geometrico')">
-                        <img src="blackwork.jpg" alt="Blackwork" onerror="this.src='https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400';">
-                        <div class="info">Geometrico/Ornamentale/Blackwork</div>
+                        <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400" alt="Geometrico">
+                        <div class="info">Geometrico / Blackwork</div>
                     </div>
                     <div class="style-card" onclick="selectTattooStyle(this, 'Manga')">
-                        <img src="cartoon.jpeg" alt="Manga" onerror="this.src='https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400';">
-                        <div class="info">Manga/Cartoon/Colorato</div>
+                        <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400" alt="Manga">
+                        <div class="info">Manga / Cartoon</div>
                     </div>
                     <div class="style-card full-width" onclick="selectTattooStyle(this, 'Altro')">
-                        <img src="altro.jpeg" alt="Altro" onerror="this.src='https://images.unsplash.com/photo-1542462864-342dc36da902?w=400';">
-                        <div class="info">Altro</div>
+                        <img src="https://images.unsplash.com/photo-1542462864-342dc36da902?w=800" alt="Altro">
+                        <div class="info">Altro Stile</div>
                     </div>
                 </div>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
@@ -489,7 +500,7 @@
                 <input type="text" id="piercingZone" placeholder="Oppure scrivi qui...">
                 
                 <div class="artist-card full-width" style="margin-top: 10px; cursor: default; display: flex; align-items: center; border: none; background: rgba(255,255,255,0.05);">
-                    <img src="ivan.jpeg" style="width: 60px; height: 60px; border-radius: 50%; margin: 10px;" onerror="this.src='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100';">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" style="width: 60px; height: 60px; border-radius: 50%; margin: 10px;">
                     <div class="name" style="background:transparent; color: white;">Ivan - Piercer</div>
                 </div>
                 
@@ -498,7 +509,7 @@
             </div>
         </section>
 
-        <!-- COMUNE: DISPONIBILITÀ (STEP 6) -->
+        <!-- COMUNE: DISPONIBILITÀ (STEP 6 - Salta per Piercing) -->
         <section>
             <div class="content-wrapper">
                 <h2>Disponibilità</h2>
@@ -569,10 +580,10 @@
         };
 
         const artists = [
-            { name: 'Biagio', img: 'biagio.jpeg', styles: ['Fine Line', 'Realistico', 'Geometrico', 'Altro'] },
-            { name: 'Domenica', img: 'domenica.jpeg', styles: ['Fine Line', 'Altro'] },
-            { name: 'Jacopo', img: 'jacopo.jpeg', styles: ['Manga', 'Altro'] },
-            { name: 'Evita', img: 'evita.jpeg', styles: ['Manga', 'Altro'] }
+            { name: 'Biagio', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Fine Line', 'Realistico', 'Geometrico', 'Altro'] },
+            { name: 'Domenica', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Fine Line', 'Altro'] },
+            { name: 'Jacopo', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Manga', 'Altro'] },
+            { name: 'Evita', img: 'https://images.unsplash.com/photo-1590004653394-3f84aea4e1af?w=400', styles: ['Manga', 'Altro'] }
         ];
 
         function updateUI() {
@@ -585,6 +596,7 @@
         
         function prevStep() { 
             if(flow === 'piercing' && step === 5) { step = 0; }
+            else if(flow === 'piercing' && step === 7) { step = 5; } // Piercing torna a zona
             else if(flow === 'tattoo' && step === 1) { step = 0; }
             else if(flow === 'tattoo' && step === 6) { 
                 const filtered = artists.filter(a => a.styles.includes(data.style));
@@ -597,8 +609,13 @@
         function startFlow(type) {
             flow = type;
             data.type = type;
-            if(type === 'tattoo') { step = 1; } 
-            else { 
+            // Reset availability for fresh flows
+            data.selectedDays = [];
+            data.selectedTimes = [];
+            
+            if(type === 'tattoo') { 
+                step = 1; 
+            } else { 
                 step = 5; 
                 data.artist = 'Ivan (Piercer)';
             }
@@ -610,7 +627,6 @@
             el.closest('section').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             
-            // Logica specifica per lo Step 3 (Stato Progetto) verso lo Step 6 o 4
             if (key === 'status') {
                 const filtered = artists.filter(a => a.styles.includes(data.style));
                 setTimeout(() => {
@@ -631,24 +647,21 @@
             list.innerHTML = '';
             const filtered = artists.filter(a => a.styles.includes(style));
             
-            // Popolamento lista artisti
             filtered.forEach(a => {
                 const card = document.createElement('div');
                 card.className = 'artist-card';
                 card.onclick = () => selectArtist(a.name, card);
-                card.innerHTML = `<img src="${a.img}" onerror="this.src='https://images.unsplash.com/photo-1590086782957-93c06ef23604?w=400'"><div class="name">${a.name}</div>`;
+                card.innerHTML = `<img src="${a.img}"><div class="name">${a.name}</div>`;
                 list.appendChild(card);
             });
 
-            // Se c'è un solo artista per quello stile, viene salvato subito
             if (filtered.length === 1) {
                 data.artist = filtered[0].name;
             } else if (filtered.length > 1) {
-                // Aggiunta pulsante "Senza preferenze" centrato in basso (full-width)
                 const noPrefCard = document.createElement('div');
                 noPrefCard.className = 'artist-card no-pref-card';
                 noPrefCard.onclick = () => selectArtist('Senza preferenze', noPrefCard);
-                noPrefCard.innerHTML = `<div class="name">Non ho preferenze</div>`;
+                noPrefCard.innerHTML = `<div class="name">Senza preferenza</div>`;
                 list.appendChild(noPrefCard);
             }
 
@@ -672,9 +685,10 @@
         function confirmPiercingZone() {
             const inputVal = document.getElementById('piercingZone').value;
             if(inputVal) data.piercingZone = inputVal;
+            if(!data.piercingZone) return;
             
-            if(!data.piercingZone) return alert("Specifica la zona del piercing");
-            step = 6;
+            // Per il Piercing, saltiamo lo step 6 (Disponibilità) e andiamo al 7 (Altre Info)
+            step = 7;
             updateUI();
         }
 
@@ -719,10 +733,7 @@
         }
 
         function validateAvailability() {
-            if (data.selectedDays.length === 0 || data.selectedTimes.length === 0) {
-                alert("Seleziona almeno un giorno e una fascia oraria o clicca su Sempre Disponibile.");
-                return;
-            }
+            if (data.selectedDays.length === 0 || data.selectedTimes.length === 0) return;
             nextStep();
         }
 
@@ -730,7 +741,7 @@
             data.name = document.getElementById('userName').value;
             data.info = document.getElementById('otherInfo').value;
 
-            if(!data.name) return alert("Inserisci il tuo nome per continuare");
+            if(!data.name) return;
 
             const phone = "3335442533";
             let message = `*NUOVA RICHIESTA ${data.type.toUpperCase()}*%0A%0A`;
@@ -738,18 +749,15 @@
             
             if(data.type === 'tattoo') {
                 message += `📏 *Misura:* ${data.size}%0A🎨 *Stile:* ${data.style}%0A📝 *Stato:* ${data.status}%0A✍️ *Artista:* ${data.artist}%0A`;
+                let availabilityText = (data.selectedDays.length === 7 && data.selectedTimes.length === 3) 
+                    ? "Sempre Disponibile" 
+                    : `${data.selectedDays.join(', ')} (${data.selectedTimes.join('/')})`;
+                message += `⏰ *Disponibilità:* ${availabilityText}%0A`;
             } else {
                 message += `📍 *Zona Piercing:* ${data.piercingZone}%0A💎 *Piercer:* Ivan%0A`;
             }
 
-            let availabilityText = "";
-            if (data.selectedDays.length === 7 && data.selectedTimes.length === 3) {
-                availabilityText = "Sempre Disponibile";
-            } else {
-                availabilityText = `${data.selectedDays.join(', ')} (${data.selectedTimes.join('/')})`;
-            }
-
-            message += `⏰ *Disponibilità:* ${availabilityText}%0Aℹ️ *Altre info:* ${data.info || 'Nessuna'}`;
+            message += `ℹ️ *Altre info:* ${data.info || 'Nessuna'}`;
             
             window.open(`https://wa.me/39${phone}?text=${message}`, '_blank');
         }
