@@ -69,7 +69,7 @@
         /* SLIDER */
         .main-slider {
             display: flex;
-            width: 900%; /* Ridotto a 9 step max */
+            width: 900%; 
             height: 100%;
             transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
@@ -170,15 +170,6 @@
             text-align: center;
         }
 
-        .option-btn .sub-label { 
-            font-size: 0.65rem; 
-            opacity: 0.6; 
-            font-weight: 400; 
-            text-transform: none; 
-            width: 100%;
-            text-align: center;
-        }
-        
         .option-btn.selected {
             border-color: var(--accent-white);
             background: var(--accent-white);
@@ -215,23 +206,6 @@
             transition: filter 0.3s;
         }
 
-        .style-card .info {
-            padding: 15px 10px;
-            text-align: center;
-            font-weight: 800;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            background: rgba(0,0,0,0.6);
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .style-card.selected { border-color: var(--accent-white); }
-        .style-card.selected img { filter: brightness(1); }
-        .style-card.selected .info { background: var(--accent-white); color: black; }
-
         /* GIORNI E ORARI */
         .selection-label {
             width: 100%;
@@ -243,12 +217,22 @@
             text-align: center;
         }
 
+        /* GRIGLIA GIORNI: TUTTI SULLA STESSA RIGA */
         .days-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
             width: 100%;
             margin-bottom: 10px;
+        }
+
+        .day-btn {
+            padding: 12px 4px;
+            font-size: 0.7rem;
+        }
+
+        .day-btn .label {
+            font-size: 0.7rem;
         }
 
         .times-grid {
@@ -282,13 +266,6 @@
             object-fit: cover;
         }
 
-        .artist-card .name {
-            padding: 12px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-
         .artist-card.selected { border-color: var(--accent-white); }
         .artist-card.selected .name { background: var(--accent-white); color: black; }
 
@@ -303,13 +280,6 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .no-preference-card.selected {
-            background: var(--accent-white);
-            color: black;
-            border-color: var(--accent-white);
         }
 
         /* PIERCING PRESETS */
@@ -355,10 +325,7 @@
             width: 100%;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(255,255,255,0.2);
-            transition: transform 0.2s;
         }
-
-        .btn-primary:active { transform: scale(0.98); }
 
         .btn-back {
             background: transparent;
@@ -368,7 +335,6 @@
             cursor: pointer;
             margin-top: 25px;
             text-transform: uppercase;
-            letter-spacing: 1px;
             text-decoration: underline;
         }
     </style>
@@ -408,19 +374,15 @@
                 <div class="option-grid">
                     <div class="option-btn" onclick="selectTattooOption('size', 'Piccolo', this)">
                         <span class="label">Piccolo</span>
-                        <span class="sub-label">fino a 5 cm</span>
                     </div>
                     <div class="option-btn" onclick="selectTattooOption('size', 'Medio', this)">
                         <span class="label">Medio</span>
-                        <span class="sub-label">fino a 15 cm</span>
                     </div>
                     <div class="option-btn" onclick="selectTattooOption('size', 'Grande', this)">
                         <span class="label">Grande</span>
-                        <span class="sub-label">oltre 20 cm</span>
                     </div>
                     <div class="option-btn" onclick="selectTattooOption('size', 'Intero', this)">
                         <span class="label">Intero</span>
-                        <span class="sub-label">Soggetti complessi</span>
                     </div>
                 </div>
                 <button class="btn-back" onclick="goToStep(0)">Torna Indietro</button>
@@ -499,7 +461,7 @@
             </div>
         </section>
 
-        <!-- COMUNE: CALENDARIO (STEP 6 - Solo Tattoo) -->
+        <!-- COMUNE: CALENDARIO (STEP 6) -->
         <section>
             <div class="content-wrapper">
                 <h2>Disponibilità</h2>
@@ -515,6 +477,7 @@
                     <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Gio', this)"><span class="label">Gio</span></div>
                     <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Ven', this)"><span class="label">Ven</span></div>
                     <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Sab', this)"><span class="label">Sab</span></div>
+                    <div class="option-btn day-btn" onclick="toggleMultiSelect('days', 'Dom', this)"><span class="label">Dom</span></div>
                 </div>
                 <div class="selection-label">Fascia oraria</div>
                 <div class="times-grid">
@@ -657,7 +620,7 @@
             if(!val) return;
             data.piercingZone = val;
             data.artist = "Ivan";
-            step = 7; // Salta calendario
+            step = 7; 
             updateUI();
         }
 
@@ -670,12 +633,13 @@
 
         function toggleAlwaysAvailable() {
             const btn = document.getElementById('btn-always');
-            if(data.selectedDays.length === 6) {
+            const totalPossibleDays = 7;
+            if(data.selectedDays.length === totalPossibleDays) {
                 data.selectedDays = []; data.selectedTimes = [];
                 btn.classList.remove('selected');
                 document.querySelectorAll('.day-btn, .time-btn').forEach(b => b.classList.remove('selected'));
             } else {
-                data.selectedDays = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+                data.selectedDays = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
                 data.selectedTimes = ['Mattina', 'Pomeriggio', 'Sera'];
                 btn.classList.add('selected');
                 document.querySelectorAll('.day-btn, .time-btn').forEach(b => b.classList.add('selected'));
