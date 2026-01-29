@@ -120,7 +120,7 @@
             margin: 0 0 12px 0;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
         }
 
         p.subtitle {
@@ -170,6 +170,12 @@
             text-align: center;
         }
 
+        .option-btn .sub-label {
+            font-size: 0.65rem;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
         .option-btn.selected {
             border-color: var(--accent-white);
             background: var(--accent-white);
@@ -183,7 +189,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             width: 100%;
-            max-height: 55vh;
+            max-height: 60vh;
             overflow-y: auto;
             padding: 5px;
         }
@@ -195,6 +201,13 @@
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        .style-card.centered-full {
+            grid-column: span 2;
+            width: 60%;
+            margin: 0 auto;
         }
 
         .style-card img {
@@ -204,6 +217,23 @@
             filter: brightness(0.6);
             display: block;
             transition: filter 0.3s;
+        }
+
+        .style-card.selected {
+            border-color: var(--accent-white);
+        }
+
+        .style-card .info {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            padding: 8px;
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.2;
         }
 
         /* GIORNI E ORARI */
@@ -217,7 +247,6 @@
             text-align: center;
         }
 
-        /* GRIGLIA GIORNI: TUTTI SULLA STESSA RIGA */
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -264,6 +293,13 @@
             width: 100%;
             height: 160px;
             object-fit: cover;
+        }
+
+        .artist-card .name {
+            padding: 10px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
         }
 
         .artist-card.selected { border-color: var(--accent-white); }
@@ -354,7 +390,7 @@
                     <img src="profile.jpg" alt="SkinArt Logo" onerror="this.src='https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300'">
                 </div>
                 <h2>SkinArt Studio</h2>
-                <p class="subtitle">Benvenuto. Scegli il servizio per iniziare la tua prenotazione.</p>
+                <p class="subtitle">Scegli il servizio per iniziare la tua prenotazione.</p>
                 <div class="option-grid">
                     <button class="option-btn full-width" onclick="startFlow('tattoo')">
                         <span class="label">Tatuaggio</span>
@@ -372,17 +408,21 @@
                 <h2>Grandezza</h2>
                 <p class="subtitle">Indica la dimensione approssimativa del tatuaggio</p>
                 <div class="option-grid">
-                    <div class="option-btn" onclick="selectTattooOption('size', 'Piccolo', this)">
+                    <div class="option-btn" onclick="selectTattooOption('size', 'Piccolo (Fino a 5cm)', this)">
                         <span class="label">Piccolo</span>
+                        <span class="sub-label">Fino a 5cm</span>
                     </div>
-                    <div class="option-btn" onclick="selectTattooOption('size', 'Medio', this)">
+                    <div class="option-btn" onclick="selectTattooOption('size', 'Medio (Fino a 10cm)', this)">
                         <span class="label">Medio</span>
+                        <span class="sub-label">Fino a 10cm</span>
                     </div>
-                    <div class="option-btn" onclick="selectTattooOption('size', 'Grande', this)">
+                    <div class="option-btn" onclick="selectTattooOption('size', 'Grande (Oltre 15cm)', this)">
                         <span class="label">Grande</span>
+                        <span class="sub-label">Oltre 15cm</span>
                     </div>
-                    <div class="option-btn" onclick="selectTattooOption('size', 'Intero', this)">
+                    <div class="option-btn" onclick="selectTattooOption('size', 'Intero (Braccio/Gamba)', this)">
                         <span class="label">Intero</span>
+                        <span class="sub-label">Braccio/Gamba</span>
                     </div>
                 </div>
                 <button class="btn-back" onclick="goToStep(0)">Torna Indietro</button>
@@ -403,13 +443,17 @@
                         <img src="realistico.jpg" alt="Realistico" onerror="this.src='https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400'">
                         <div class="info">Realistico</div>
                     </div>
-                    <div class="style-card" onclick="selectTattooStyle(this, 'Geometrico')">
+                    <div class="style-card" onclick="selectTattooStyle(this, 'Geometrico/Ornamentale/Blackwork')">
                         <img src="blackwork.jpg" alt="Geometrico" onerror="this.src='https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400'">
-                        <div class="info">Geometrico</div>
+                        <div class="info">Geometrico / Ornamentale / Blackwork</div>
                     </div>
-                    <div class="style-card" onclick="selectTattooStyle(this, 'Manga')">
+                    <div class="style-card" onclick="selectTattooStyle(this, 'Manga/Cartoon/Colorato')">
                         <img src="cartoon.jpeg" alt="Manga" onerror="this.src='https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400'">
-                        <div class="info">Manga / Cartoon</div>
+                        <div class="info">Manga / Cartoon / Colorato</div>
+                    </div>
+                    <div class="style-card centered-full" onclick="selectTattooStyle(this, 'Altro')">
+                        <img src="altro.jpeg" alt="Altro" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400'">
+                        <div class="info">Altro</div>
                     </div>
                 </div>
                 <button class="btn-back" onclick="prevStep()">Indietro</button>
@@ -528,10 +572,10 @@
         };
 
         const artists = [
-            { name: 'Biagio', img: 'biagio.jpeg', styles: ['Fine Line', 'Realistico', 'Geometrico'] },
-            { name: 'Domenica', img: 'domenica.jpeg', styles: ['Fine Line'] },
-            { name: 'Jacopo', img: 'jacopo.jpeg', styles: ['Manga'] },
-            { name: 'Evita', img: 'evita.jpeg', styles: ['Manga'] }
+            { name: 'Biagio', img: 'biagio.jpeg', styles: ['Fine Line', 'Realistico', 'Geometrico/Ornamentale/Blackwork', 'Altro'] },
+            { name: 'Domenica', img: 'domenica.jpeg', styles: ['Fine Line', 'Altro'] },
+            { name: 'Jacopo', img: 'jacopo.jpeg', styles: ['Manga/Cartoon/Colorato', 'Altro'] },
+            { name: 'Evita', img: 'evita.jpeg', styles: ['Manga/Cartoon/Colorato', 'Altro'] }
         ];
 
         function updateUI() {
